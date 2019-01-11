@@ -7,7 +7,7 @@ npx是针对npm的扩展，就是指直接执行node_modules里面对应的bin�
 webpack.config.js是基于node的语法，common.js的写法
 module.exports={}
 
-webpack的插件包htmlWebpackPlugin,clean-webpack-plugin,style-loader,css-loader
+webpack的插件包htmlWebpackPlugin,extractclean-webpack-plugin,style-loader,css-loader,less-loader,stylus-loader,node-sass,sass-loader
 
 在package.json中得scripts中编写对应得快捷键
 {
@@ -61,6 +61,26 @@ if(module.hot){
  module.hot.accept()
 }
 这样凡是index.js中require的相应模块发生了变化，就会热更新，而不会刷新页面
+
+
+module:{
+  rules:[
+    {test:/\.css$/,
+     use:[
+      {loader:'style-loader'},
+      {loader:'css-loader'}
+     ]
+    },
+    {test:/\.less$/,
+     use:[
+      {loader:'style-loader'},
+      {loader:'css-loader'},
+      {loader:'less-loader'}
+     ]
+    },
+  ]
+}
+配置完这个之后就可以在index.js中，import './css/index.css',import './css/style.less',否则就不能模块化，但是这么配置的话，会把css样式放在打包好的js文件里
 
 npm run start (npx webpack-dev-server)这时候生成的代码存在浏览器中，不会出现build文件夹，会生成端口号路径，这样会提升打包性能，
 npm run build (npx webpack) 会生成build文件夹，这时候在build文件夹中会生成打包文件，然后上线
