@@ -39,14 +39,16 @@ devServer:{
            3.所以在plugins里面需要new 一下这个类，并在实例化这个类的时候，传入相应的参数。
 pulgins:[
     new HtmlWebpackPlugin({
-        template: './src/index.html',
-        title: 'demo',
+        filename: 'test.html', //生成的html是test.html
+        template: './src/index.html', //模板是index.html
+        title: 'demo', //htmlWebpackPlugin.option.title变量的值是demo
         hash: true,
         minify: {
             removeAttributeQuotes：true, //压缩掉html中的引号
             collapseWhitespace:true,
             
-        }
+        },
+        chunks:['index'] //生成的test.html引用
         ...多种参数
     })
     new CleanWebpackPlugin(['./build'])
