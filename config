@@ -38,6 +38,7 @@ devServer:{
            2.需要先按照node方式引入let xxx = require('xxx')，引入后是一个类;
            3.所以在plugins里面需要new 一下这个类，并在实例化这个类的时候，传入相应的参数。
 pulgins:[
+    new CleanWebpackPlugin(['./build']) //删除打包生成的build文件夹
     new HtmlWebpackPlugin({
         filename: 'test.html', //生成的html是test.html
         template: './src/index.html', //模板是index.html
@@ -48,10 +49,10 @@ pulgins:[
             collapseWhitespace:true,
             
         },
-        chunks:['index'] //生成的test.html引用
+        chunks:['index'] //生成的test.html引用index.js，这样就实现了多页面引用多脚本
         ...多种参数
     })
-    new CleanWebpackPlugin(['./build'])
+    
 ]
 webpack会记住这个html模板，会把打包生成的js，引入到这个html中。再把这个html生成在build目录中，同时也会把配置里面的各种变量生成后写在build文件的html中
 
